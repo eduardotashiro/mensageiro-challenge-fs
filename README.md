@@ -64,6 +64,7 @@ npm run dev
 │   │   ├── config
 │   │   │   └── config.ts
 │   │   ├── controllers
+│   │   │   └── users.controller.ts
 │   │   ├── middleware
 │   │   ├── routes
 │   │   │   └── users.route.ts
