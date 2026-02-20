@@ -1,9 +1,11 @@
 import { config } from './config/config.js';
 import express, { json } from 'express';
+import userRoutes from './routes/users.route.js';
 
-const app = express();
-
+export const app = express();
 app.use(json());
+app.use("/api",userRoutes);
+
 
 app.listen(config.port, () => {
     try {
