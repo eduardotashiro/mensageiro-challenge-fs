@@ -6,8 +6,7 @@ export const app = express();
 
 app.use(json());
 
-app.use("/api/register", authRoutes);
-app.use("/api/login", authRoutes);
+app.use("/api/auth", authRoutes);
 
 
 
