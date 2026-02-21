@@ -1,0 +1,1 @@
+// funções auxiliares, como validações de dados, formatação de strings etc... WIP

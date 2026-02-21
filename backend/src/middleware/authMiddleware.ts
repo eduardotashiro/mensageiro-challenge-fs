@@ -1,0 +1,1 @@
+// Middleware de autenticação para proteger rotas que exigem login do usuário e etc... WIP
