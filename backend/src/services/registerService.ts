@@ -2,16 +2,16 @@ import { prisma } from '../lib/prisma.js';
 import { z } from "zod";
 import bcrypt from 'bcrypt';
 
-//lógica para registrar um usuário, criar um novo registro no banco de dados, etc... WIP
 
 const createUserSchema = z.object({
-    email:z.email(),
+    email: z.email(),
     password: z.string().min(8, { message: "Password must be at least 8 characters long !" }),
     name: z.string().min(1, { message: "Name is required !" }),
 });
 
 export async function registerUser(email: string, password: string, name: string) {
-    createUserSchema.parse({ email, password, name }); // lança ZodError se inválido
+    
+    createUserSchema.parse({ email, password, name }); 
 
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
