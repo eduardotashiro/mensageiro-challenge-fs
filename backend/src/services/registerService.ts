@@ -1,38 +1,29 @@
 import { prisma } from '../lib/prisma.js';
+import { z } from "zod";
+import bcrypt from 'bcrypt';
 
 //lógica para registrar um usuário, criar um novo registro no banco de dados, etc... WIP
 
+const createUserSchema = z.object({
+    email:z.email(),
+    password: z.string().min(8, { message: "Password must be at least 8 characters long !" }),
+    name: z.string().min(1, { message: "Name is required !" }),
+});
 
-async function registerUser(email: string, password: string, name: string) {
-    if (!email || !password || !name) {
-        throw new Error('Email, password and name are required !');
-    }
-    if (password.length < 8) {
-        throw new Error('Password must be at least 8 characters long !');
-    }
-    if(!email.includes('@')) {
-        throw new Error('Invalid email format !');
-    }
+export async function registerUser(email: string, password: string, name: string) {
+    createUserSchema.parse({ email, password, name }); // lança ZodError se inválido
 
     const existingUser = await prisma.user.findUnique({ where: { email } });
-
     if (existingUser) {
         throw new Error('Email already in use !');
     }
 
-    const user = await prisma.user.create({
-        data: {
-            email,
-            passwordHash: password, //preciso implementar hash de senha, para não armazenar senhas em texto plano no banco de dados... WIP
-            name
-        }
-    });
-    return user;
+    const passwordHash = await bcrypt.hash(password, 10);
 
+    const user = await prisma.user.create({
+        data: { email, passwordHash, name }
+    });
+
+    return user;
 }
 
-export default { registerUser }
-
-//separar cada comportamento em funções menores?
-//status code jogo pro controller..
-//devo tratar os erros .. vai dar tempo ? 
