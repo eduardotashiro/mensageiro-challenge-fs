@@ -1,1 +1,2 @@
-// funções auxiliares, como validações de dados, formatação de strings etc... WIP
+import {z, ZodError} from "zod";
+//validation helper function

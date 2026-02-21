@@ -1,16 +1,17 @@
 import { config } from './config/config.js';
 import express, { json } from 'express';
 import authRoutes from './routes/auth.route.js';
+import cors from 'cors';
 
 export const app = express();
 
+app.use(cors({origin: config.CORS_ORIGIN}));
 app.use(json());
 
+
+
 app.use("/api/auth", authRoutes);
-
-
-
-
+//add more routes...
 
 
 
