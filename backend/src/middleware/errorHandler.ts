@@ -1,1 +1,0 @@
-// Middleware para tratamento de erros genéricos, log de erros e envio de respostas padronizadas ao cliente e etc... WIP

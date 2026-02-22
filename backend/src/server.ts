@@ -1,7 +1,8 @@
 import { config } from './config/config.js';
 import express, { json } from 'express';
-import authRoutes from './routes/auth.route.js';
 import cors from 'cors';
+import authRoutes from './routes/auth.route.js';
+import templateRoutes from './routes/templates.route.js';
 import { AuthenticatedRequest, authMiddleware } from './middleware/authMiddleware.js';
 
 export const app = express();
@@ -12,13 +13,14 @@ app.use(json());
 
 
 app.use("/api/auth", authRoutes);
+app.use("/api/templates", templateRoutes);
 
 
+
+//test autentication
 app.get("/api/auth/me", authMiddleware, (req: AuthenticatedRequest, res) => {
     return res.status(200).json({ message: "User authenticated", user: req.user });
 })
-
-
 
 
 
