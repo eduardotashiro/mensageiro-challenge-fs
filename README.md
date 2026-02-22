@@ -60,16 +60,31 @@ npm run dev
 
 ```
 ├── backend
+│   ├── prisma
+│   │   ├── migrations
+│   │   │   ├── 20260221023123_init
+│   │   │   │   └── migration.sql
+│   │   │   └── migration_lock.toml
+│   │   └── schema.prisma
 │   ├── src
 │   │   ├── config
 │   │   │   └── config.ts
 │   │   ├── controllers
-│   │   │   └── users.controller.ts
+│   │   │   ├── auth.controller.ts
+│   │   │   └── template.controller.ts
+│   │   ├── generated
+│   │   ├── lib
+│   │   │   └── prisma.ts
 │   │   ├── middleware
+│   │   │   └── authMiddleware.ts
 │   │   ├── routes
-│   │   │   └── users.route.ts
+│   │   │   ├── auth.route.ts
+│   │   │   └── templates.route.ts
 │   │   ├── services
-│   │   ├── utils
+│   │   │   ├── emailService.ts
+│   │   │   ├── loginService.ts
+│   │   │   ├── registerService.ts
+│   │   │   └── templatesService.ts
 │   │   └── server.ts
 │   ├── .env.example
 │   ├── package-lock.json
@@ -79,5 +94,7 @@ npm run dev
 ├── .env.example
 ├── .gitignore
 ├── README.md
-└── docker-compose.yml
+├── docker-compose.yml
+├── package-lock.json
+└── package.json
 ```
