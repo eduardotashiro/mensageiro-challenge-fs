@@ -15,14 +15,14 @@ export async function loginUser(email: string, password: string) {
 
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
-        throw new Error('Invalid email !');
+        throw new Error('Invalid email or password !');
     }
     
     const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
     if (!isPasswordValid) {
-        throw new Error('Invalid password !');
+        throw new Error('Invalid email or password !');
     }
-
+ 
     const token = jwt.sign(
         {
             id: user.id,
@@ -30,8 +30,7 @@ export async function loginUser(email: string, password: string) {
             name: user.name
         },
         config.JWT_SECRET!,
-        { expiresIn: '1d' }); //1h ? 1d ? 2h ? 30 min ?     
-
+        { expiresIn: "1d"}); //não consegui usar env...
 
     return { user, token };
 }
