@@ -32,6 +32,8 @@ model Template {
   body      String
   createdAt DateTime @default(now())
 
+  emails    Email[]
+  
   authorId  String
   author    User @relation(fields: [authorId], references: [id])
 }
@@ -41,6 +43,11 @@ model Email {
   subject     String
   body        String
   sentAt      DateTime @default(now())
+
+  recipients Json    
+  
+  templateId String
+  template   Template @relation(fields: [templateId], references: [id])
 
   userId   String
   user     User @relation(fields: [userId], references: [id])
