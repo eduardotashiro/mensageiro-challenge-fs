@@ -4,6 +4,7 @@ import cors from 'cors';
 import authRoutes from './routes/auth.route.js';
 import templateRoutes from './routes/templates.route.js';
 import userRoutes from './routes/users.route.js';
+import emailRoutes from './routes/email.route.js';
 import { AuthenticatedRequest, authMiddleware } from './middleware/authMiddleware.js';
 
 export const app = express();
@@ -16,6 +17,8 @@ app.use(json());
 app.use("/api/auth", authRoutes);
 app.use("/api/templates", templateRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/email", emailRoutes);
+
 
 
 //test autentication
