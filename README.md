@@ -58,11 +58,14 @@ npm run dev
 
 ### structure
 
+
 ```
 ├── backend
 │   ├── prisma
 │   │   ├── migrations
 │   │   │   ├── 20260221023123_init
+│   │   │   │   └── migration.sql
+│   │   │   ├── 20260222193621_add_email_relations
 │   │   │   │   └── migration.sql
 │   │   │   └── migration_lock.toml
 │   │   └── schema.prisma
@@ -71,7 +74,9 @@ npm run dev
 │   │   │   └── config.ts
 │   │   ├── controllers
 │   │   │   ├── auth.controller.ts
-│   │   │   └── template.controller.ts
+│   │   │   ├── email.controller.ts
+│   │   │   ├── template.controller.ts
+│   │   │   └── users.controller.ts
 │   │   ├── generated
 │   │   ├── lib
 │   │   │   └── prisma.ts
@@ -79,18 +84,35 @@ npm run dev
 │   │   │   └── authMiddleware.ts
 │   │   ├── routes
 │   │   │   ├── auth.route.ts
-│   │   │   └── templates.route.ts
+│   │   │   ├── email.route.ts
+│   │   │   ├── templates.route.ts
+│   │   │   └── users.route.ts
 │   │   ├── services
 │   │   │   ├── emailService.ts
 │   │   │   ├── loginService.ts
 │   │   │   ├── registerService.ts
-│   │   │   └── templatesService.ts
+│   │   │   ├── templatesService.ts
+│   │   │   └── usersService.ts
 │   │   └── server.ts
 │   ├── .env.example
 │   ├── package-lock.json
 │   ├── package.json
 │   └── tsconfig.json
 ├── frontend
+│   └── src
+│       ├── assets
+│       │   └── bg-leve.jpg
+│       ├── pages
+│       │   ├──  login.html
+│       │   ├── mensageiro.html
+│       │   └── register.html
+│       ├── scripts
+│       │   ├── api.js
+│       │   └── register.js
+│       └── style
+│           ├── login.css
+│           ├── mensageiro.css
+│           └── register.css
 ├── .env.example
 ├── .gitignore
 ├── README.md
