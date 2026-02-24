@@ -9,7 +9,12 @@ import { AuthenticatedRequest, authMiddleware } from './middleware/authMiddlewar
 
 export const app = express();
 
-app.use(cors({origin: config.CORS_ORIGIN}));
+const corsOptions = {
+  origin: config.CORS_ORIGIN,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions)); 
 app.use(json());
 
 
