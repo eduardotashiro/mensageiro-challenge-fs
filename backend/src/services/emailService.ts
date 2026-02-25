@@ -5,8 +5,8 @@ export async function sendEmail(templateId: string, senderId: string, recipientI
     const template = await prisma.template.findUnique({
         where: { id: templateId }
     });
-    if (!template){
-         throw new Error("Template not found!");
+    if (!template) {
+        throw new Error("Template not found!");
     }
 
     const sender = await prisma.user.findUnique({
@@ -26,7 +26,7 @@ export async function sendEmail(templateId: string, senderId: string, recipientI
 
 
     const emails = recipients.map(recipient => {
-        const body = template.body.replace(/{{name}}/g, recipient.name).replace(/{{sender}}/g, sender.name);
+        const body = template.body.replace(/{{destinatário}}/g, recipient.name).replace(/{{remetente}}/g, sender.name);
 
         return {
             id: recipient.id,
@@ -41,7 +41,7 @@ export async function sendEmail(templateId: string, senderId: string, recipientI
         data: {
             subject: template.subject,
             body: template.body,
-            recipients: recipients.map(r => r.email), 
+            recipients: recipients.map(r => r.email),
             templateId: template.id,
             userId: senderId
         }

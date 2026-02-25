@@ -34,5 +34,4 @@ form.addEventListener("submit", async (event) => {
 });
     
 
-//preciso mandar o token no data  no respose 
     

@@ -1,17 +1,17 @@
-const form = document.getElementById("form");  // Pegamos o elemento do formulário pelo id "form"
-const username = document.getElementById("username"); // Pegamos o campo de username (nome de usuário)
+const form = document.getElementById("form");  
+const username = document.getElementById("username"); 
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const passwordConfirmation = document.getElementById("password-confirmation");
 
-form.addEventListener("submit", (event) => {  // Adiciona um ouvinte de evento no formulário quando ele for enviado
-    event.preventDefault(); // Impede o envio padrão do formulário (evita que a página recarregue)
+form.addEventListener("submit", (event) => {  
+    event.preventDefault();
 
-    checkForm(); // Chama a função que valida todos os campos
+    checkForm();
 
 })
 
-email.addEventListener("blur", () => {   // Quando o usuário sai do campo de email (evento "blur"), chama a validação do email
+email.addEventListener("blur", () => {  
     checkInputEmail();
 })
 
@@ -21,58 +21,55 @@ username.addEventListener("blur", () => {
 
 
 
-function checkInputUsername() {  // Validação do campo username (nome de usuário)
-    const usernameValue = username.value;  //pega o valor digitado no input
+function checkInputUsername() {  
+    const usernameValue = username.value; 
 
     if (usernameValue === "") {
-        // Se estiver vazio, mostra erro
+        
         errorInput(username, "O nome de usuário é obrigatório")
     } else {
-        // Se estiver ok, remove classe de erro (mantém classe normal)
+     
         const formItem = username.parentElement;
         formItem.className = "form-content"
     }
 }
 
-function checkInputEmail() { // Validação do campo de email
+function checkInputEmail() { 
     const emailValue = email.value;
     if (emailValue === "") {
-        // Se estiver vazio, mostra erro
+       
         errorInput(email, "O email é obrigatório")
     } else {
-        // Se estiver preenchido, remove erro
+       
         const formItem = email.parentElement;
         formItem.className = "form-content"
 
     }
 }
 
-function checkInputPassword() {  // Validação do campo de senha
+function checkInputPassword() {  
     const passwordValue = password.value;
 
     if (passwordValue === "") {
         errorInput(password, "A senha é obrigatória")
-    } else if (passwordValue.length < 8) {   // Se tiver menos de 8 caracteres, mostra outro erro
+    } else if (passwordValue.length < 8) {  
         errorInput(password, "A senha precisa ter no mínimo 8 caracteres")
     } else {
-        const formItem = password.parentElement;    // Se estiver tudo certo, remove classe de erro
+        const formItem = password.parentElement;    
         formItem.className = "form-content"
     }
 
 }
 
-function checkInputPasswordConfirmation() {  // Validação do campo de confirmação de senha
+function checkInputPasswordConfirmation() {  
     const passwordValue = password.value;
     const confirmationPasswordValue = passwordConfirmation.value
 
     if (passwordValue === "") {
-        // Se o campo senha estiver vazio, exibe erro na confirmação também
         errorInput(passwordConfirmation, "A confirmação de senha é obrigatória.")
     } else if (confirmationPasswordValue !== passwordValue) {
-        // Se as senhas forem diferentes, mostra erro
         errorInput(passwordConfirmation, "As senhas não são iguais")
     } else {
-        // Se tudo estiver correto, remove erro
         const formItem = passwordConfirmation.parentElement;
         formItem.className = "form-content"
 
@@ -80,21 +77,21 @@ function checkInputPasswordConfirmation() {  // Validação do campo de confirma
 }
 
 
-async function checkForm() {  // Valida todos os campos do formulário
-    console.log("checkForm chamado!"); // ← adiciona isso
+async function checkForm() {  
+    console.log("checkForm chamado!");
 
     checkInputUsername();
     checkInputEmail();
     checkInputPassword();
     checkInputPasswordConfirmation();
 
-    const formItems = form.querySelectorAll(".form-content")    // Pega todos os elementos com a classe form-content
+    const formItems = form.querySelectorAll(".form-content")    
 
-    const isValid = [...formItems].every((item) => {  // Verifica se todos os elementos têm apenas a classe "form-content"
+    const isValid = [...formItems].every((item) => {  
         return item.className === "form-content"
     });
 
-    if (isValid) {    // Se todos os campos estiverem validos redireciono para  a página de login 
+    if (isValid) {    
         try {
             console.log("Formulário válido, enviando dados para o backend...")
             const userData = {
@@ -103,7 +100,7 @@ async function checkForm() {  // Valida todos os campos do formulário
                 password: password.value
             }
 
-            const response = await fetch("http://localhost:3000/api/auth/register", {  // Envia os dados do usuário para o backend (rota de criação de usuário)
+            const response = await fetch("http://localhost:3000/api/auth/register", {  
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -111,14 +108,14 @@ async function checkForm() {  // Valida todos os campos do formulário
                 body: JSON.stringify(userData)
             })
 
-            if (!response.ok) {  // Se a resposta do backend for ok, redireciona para a página de login
+            if (!response.ok) {  
                 throw new Error("Erro ao criar usuário")
             }
             await response.json();
 
             alert("Usuário criado com sucesso! Agora você pode fazer login.");
 
-            window.location.href = "login.html"; // Redireciona para a página de login
+            window.location.href = "login.html"; 
 
         } catch (error) {
             alert("Erro ao criar usuário: ")
